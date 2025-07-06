@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            min-height: 100vh;
+            padding: 16px;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding-top: 32px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .icon-circle {
+            width: 64px;
+            height: 64px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .icon-circle svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        .payment-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 24px 24px 16px 24px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #059669;
+            font-size: 14px;
+        }
+
+        .security-badge svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        .amount-section {
+            text-align: center;
+            padding: 24px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .amount-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .amount {
+            font-size: 36px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .currency {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .payee-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+
+        .payee-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: #dbeafe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .payee-details h3 {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .payee-details p {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .features {
+            margin-bottom: 24px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .feature-item svg {
+            width: 16px;
+            height: 16px;
+            color: #059669;
+        }
+
+        .feature-item span {
+            color: #64748b;
+        }
+
+        .pay-button {
+            width: 100%;
+            height: 48px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pay-button:hover {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            transform: translateY(-1px);
+        }
+
+        .pay-button:active {
+            transform: translateY(0);
+        }
+
+        .pay-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .security-notice {
+            text-align: center;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 24px;
+        }
+
+        .security-notice p {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding-top: 16px;
+            }
+            
+            .payment-card {
+                margin: 0 -8px 24px -8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="icon-circle">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+            </div>
+            <h1>Secure Payment</h1>
+            <p class="subtitle">Complete your transaction safely</p>
+        </div>
+
+        <!-- Payment Card -->
+        <div class="payment-card">
+            <div class="card-header">
+                <div class="header-row">
+                    <h2 class="card-title">Payment Details</h2>
+                    <div class="security-badge">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        <span>Secured</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-content">
+                <!-- Amount Section -->
+                <div class="amount-section">
+                    <p class="amount-label">Amount to Pay</p>
+                    <p class="amount">₹150</p>
+                    <p class="currency">Indian Rupees</p>
+                </div>
+
+                <!-- Payee Info -->
+                <div class="payee-section">
+                    <h3 class="section-title">Payment To</h3>
+                    <div class="payee-info">
+                        <div class="avatar">V</div>
+                        <div class="payee-details">
+                            <h3>Vishnu</h3>
+                            <p>9908380546@ybl</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features -->
+                <div class="features">
+                    <div class="feature-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22,4 12,14.01 9,11.01"/>
+                        </svg>
+                        <span>Instant payment processing</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22,4 12,14.01 9,11.01"/>
+                        </svg>
+                        <span>Bank-grade security</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22,4 12,14.01 9,11.01"/>
+                        </svg>
+                        <span>UPI compatible</span>
+                    </div>
+                </div>
+
+                <!-- Payment Button -->
+                <button class="pay-button" onclick="handleUPIPayment()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                        <line x1="12" y1="18" x2="12.01" y2="18"/>
+                    </svg>
+                    Pay with UPI
+                </button>
+
+                <!-- Security Notice -->
+                <div class="security-notice">
+                    <p>🔒 Your payment is protected by industry-standard encryption</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Powered by UPI • Secure Payment Gateway</p>
+        </div>
+    </div>
+
+    <script>
+        function handleUPIPayment() {
+            const upiLink = "upi://pay?pa=9908380546@ybl&pn=Vishnu&am=150&cu=INR";
+            
+            // For Android, try to open UPI app directly
+            if (navigator.userAgent.toLowerCase().indexOf("android") > -1) {
+                window.location.href = upiLink;
+            } else {
+                // Fallback for other devices
+                window.open(upiLink, '_blank');
+            }
+        }
+
+        // Add touch feedback for mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.querySelector('.pay-button');
+            
+            button.addEventListener('touchstart', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.background = 'linear-gradient(135deg, #2563eb, #1d4ed8)';
+            });
+            
+            button.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.background = '';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
